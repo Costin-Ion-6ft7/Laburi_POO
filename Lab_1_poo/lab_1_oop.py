@@ -1,72 +1,69 @@
-# Clasa Carte
-class Carte:
-    def __init__(self, titlu, autor, isbn):
-        self.titlu = titlu
-        self.autor = autor
+class Book:
+    def __init__(self, title, author, isbn):
+        self.title = title
+        self.author = author
         self.isbn = isbn
 
     def __str__(self):
-        return f"{self.titlu} de {self.autor}, ISBN: {self.isbn}"
+        return f"{self.title} by {self.author}, ISBN: {self.isbn}"
 
-# Clasa Biblioteca
-class Biblioteca:
+
+class Library:
     def __init__(self):
-        self.carti = []
+        self.books = []
 
-    def adauga_carte(self, carte):
-        self.carti.append(carte)
-        print(f"Cartea '{carte.titlu}' a fost adăugată în bibliotecă.")
+    def add_book(self, book):
+        self.books.append(book)
+        print(f"The book '{book.title}' got added to the library!")
 
-    def elimina_carte(self, isbn):
-        for carte in self.carti:
-            if carte.isbn == isbn:
-                self.carti.remove(carte)
-                print(f"Cartea cu ISBN {isbn} a fost eliminată din bibliotecă.")
+    def remove_book(self, isbn):
+        for book in self.books:
+            if book.isbn == isbn:
+                self.books.remove(book)
+                print(f"The book with the ISBN code {isbn} was successfully deleted from the library :D")
                 return
-        print(f"Cartea cu ISBN {isbn} nu a fost găsită în bibliotecă.")
+        print(f"The book with the ISBN code {isbn} was not found within the library :c")
 
-    def afiseaza_carti(self):
-        if not self.carti:
-            print("Biblioteca este goală.")
+    def display_books(self):
+        if not self.books:
+            print("The library is empty")
         else:
-            print("Cărțile din bibliotecă sunt:")
-            for carte in self.carti:
-                print(carte)
+            print("All the books within the library are:")
+            for book in self.books:
+                print(book)
 
-# Funcție pentru a adăuga o carte cu date introduse manual
-def introdu_carte():
-    titlu = input("Introdu titlul cărții: ")
-    autor = input("Introdu autorul cărții: ")
-    isbn = input("Introdu ISBN-ul cărții: ")
-    return Carte(titlu, autor, isbn)
 
-# Exemplu de utilizare
+def enter_book():
+    title = input("Name of the book: ")
+    author = input("The author of the book: ")
+    isbn = input("The ISBN code of the book: ")
+    return Book(title, author, isbn)
+
+
 if __name__ == "__main__":
-    biblioteca = Biblioteca()
+    library = Library()
 
     while True:
-        print("\nMeniu Biblioteca:")
-        print("1. Adaugă o carte")
-        print("2. Elimină o carte")
-        print("3. Afișează toate cărțile")
-        print("4. Ieșire")
+        print("\nLibrary's menu:")
+        print("1. Add a book")
+        print("2. Delete a book")
+        print("3. Display all the books")
+        print("4. Exit")
         
-        optiune = input("Alege o opțiune: ")
+        option = input("Choose: ")
         
-        if optiune == "1":
-            # Adăugăm o carte cu date introduse manual
-            carte_noua = introdu_carte()
-            biblioteca.adauga_carte(carte_noua)
-        elif optiune == "2":
-            # Eliminăm o carte după ISBN
-            isbn = input("Introdu ISBN-ul cărții de eliminat: ")
-            biblioteca.elimina_carte(isbn)
-        elif optiune == "3":
-            # Afișăm toate cărțile din bibliotecă
-            biblioteca.afiseaza_carti()
-        elif optiune == "4":
-            # Ieșim din program
-            print("caca")
+        if option == "1":
+            new_book = enter_book()
+            library.add_book(new_book)
+        elif option == "2":
+            isbn = input("Enter the ISBN of the book to be removed: ")
+            library.remove_book(isbn)
+        elif option == "3":
+            library.display_books()
+        elif option == "4":
+            print("Goodbye.")
             break
         else:
+            print("Invalid input. Try again!")
+
             print("Opțiune invalidă. Încearcă din nou.")
